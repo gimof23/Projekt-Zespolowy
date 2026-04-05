@@ -1,6 +1,6 @@
 # CinemaŚty - Cinema Management System
 
-A team project developed as part of a Computer Science degree program. This full-stack web application is designed to provide comprehensive cinema management — from ticket reservation processes to advanced administrative panels and sales analytics.
+A team project developed as part of a Computer Science degree program. This full-stack web application is designed to provide comprehensive cinema management from ticket reservation processes to advanced administrative panels and sales analytics.
 
 ---
 
