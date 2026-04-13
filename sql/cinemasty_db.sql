@@ -4,7 +4,6 @@ SET NAMES utf8mb4;
 CREATE DATABASE IF NOT EXISTS `cinema_system` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE `cinema_system`;
 
--- Przechowuje użytkowników systemu i dane do logowania.
 CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -18,8 +17,6 @@ CREATE TABLE `users` (
   UNIQUE KEY `email` (`email`),
   KEY `role` (`role`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- Katalog filmów pokazywanych w kinie.
 
 CREATE TABLE `movies` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -35,9 +32,6 @@ CREATE TABLE `movies` (
   KEY `title` (`title`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-
--- Sale kinowe: nazwa, liczba miejsc, geometryczny układ miejsc.
-
 CREATE TABLE `halls` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -47,8 +41,6 @@ CREATE TABLE `halls` (
   PRIMARY KEY (`id`),
   KEY `name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- Konkretny seans: który film, która sala, data i godzina.
 
 CREATE TABLE `screenings` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -65,8 +57,6 @@ CREATE TABLE `screenings` (
   CONSTRAINT `fk_screenings_hall` FOREIGN KEY (`hall_id`) REFERENCES `halls` (`id`) ON DELETE CASCADE,
   CONSTRAINT `fk_screenings_movie` FOREIGN KEY (`movie_id`) REFERENCES `movies` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- Pojedyncza rezerwacja / bilet: użytkownik, seans, konkretne miejsce, status płatności / obiegu.
 
 CREATE TABLE `bookings` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
