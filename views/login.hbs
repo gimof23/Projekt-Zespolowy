@@ -1,0 +1,133 @@
+<div class="relative flex flex-1 items-center justify-center p-4 py-10 md:py-14">
+  <div class="relative z-10 w-full max-w-lg animate-slide-up">
+    <div class="glass-card overflow-hidden rounded-[2rem] p-1.5 shadow-2xl md:rounded-[2.5rem]">
+      <div class="relative rounded-[1.75rem] bg-white px-6 py-10 md:rounded-[2.2rem] md:px-10 md:py-12">
+
+        <div class="mb-10 flex justify-center gap-2 md:mb-12">
+           <div id="dot-login" class="h-2 w-9 rounded-full bg-rose-600 transition-all duration-300 md:h-2.5"></div>
+           <div id="dot-register" class="h-2 w-2.5 rounded-full bg-zinc-300 transition-all duration-300 md:h-2.5"></div>
+           <div id="dot-forgot" class="h-2 w-2.5 rounded-full bg-zinc-300 transition-all duration-300 md:h-2.5"></div>
+        </div>
+
+        <div class="relative min-h-[480px] md:min-h-[520px]">
+          <div id="login-section" class="login-panel transition-all duration-500 ease-out">
+            <div class="mb-10 text-center md:mb-12">
+              <h2 class="text-4xl font-black tracking-tight text-zinc-900 md:text-5xl">Witaj ponownie</h2>
+              <p class="mt-3 text-lg text-zinc-600 md:text-xl">Zaloguj się, aby kontynuować</p>
+            </div>
+
+            <form id="loginForm" class="space-y-5 md:space-y-6">
+              <div class="group relative">
+                <i class="fa-regular fa-envelope absolute left-5 top-1/2 -translate-y-1/2 text-lg text-zinc-400 transition-colors group-focus-within:text-rose-600"></i>
+                <input type="email" name="email" required placeholder="E-mail" class="min-h-[3.5rem] w-full rounded-2xl border-2 border-zinc-200 bg-white py-4 pl-14 pr-5 text-base font-medium text-zinc-900 placeholder:text-zinc-400 outline-none transition-all focus:border-rose-500 focus:ring-4 focus:ring-rose-100 md:min-h-16 md:text-lg md:pl-[3.75rem]">
+              </div>
+              <div class="group relative">
+                <i class="fa-solid fa-lock absolute left-5 top-1/2 -translate-y-1/2 text-lg text-zinc-400 transition-colors group-focus-within:text-rose-600"></i>
+                <input type="password" id="loginPassword" name="password" required placeholder="Hasło" class="min-h-[3.5rem] w-full rounded-2xl border-2 border-zinc-200 bg-white py-4 pl-14 pr-14 text-base font-medium text-zinc-900 placeholder:text-zinc-400 outline-none transition-all focus:border-rose-500 focus:ring-4 focus:ring-rose-100 md:min-h-16 md:text-lg md:pl-[3.75rem] md:pr-16">
+                <button type="button" onclick="togglePassword('loginPassword', this)" class="absolute right-5 top-1/2 -translate-y-1/2 text-zinc-400 transition-colors hover:text-rose-600 md:text-lg">
+                  <i class="fa-regular fa-eye"></i>
+                </button>
+              </div>
+              <div class="flex justify-end">
+                <button type="button" onclick="switchView('forgot')" class="text-base font-bold text-zinc-500 transition-colors hover:text-rose-600 md:text-lg">Zapomniałeś hasła?</button>
+              </div>
+              <div class="mt-2 flex flex-col gap-3">
+                <button type="submit" class="btn-primary btn-xl w-full font-black">Zaloguj się</button>
+                <button type="button" onclick="switchView('register')" class="min-h-[3.25rem] w-full rounded-2xl border-2 border-zinc-200 bg-white py-3.5 text-base font-bold text-zinc-800 shadow-sm transition-all hover:border-rose-400 hover:bg-rose-50 hover:text-rose-700 active:scale-[0.99] md:min-h-16 md:text-lg">
+                  Zarejestruj się
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <div id="register-section" class="login-panel pointer-events-none absolute inset-0 flex flex-col translate-x-full opacity-0 transition-all duration-500 ease-out">
+            <div class="mb-5 text-center md:mb-6">
+              <button type="button" onclick="switchView('login')" class="inline-flex items-center justify-center gap-2 text-sm font-bold text-zinc-500 transition-colors hover:text-rose-600 md:text-base">
+                <i class="fas fa-arrow-left text-xs md:text-sm"></i>
+                Wróć do logowania
+              </button>
+            </div>
+
+            <div class="mb-6 text-center md:mb-8">
+              <h2 class="text-4xl font-black tracking-tight text-zinc-900 md:text-5xl">Dołącz do nas</h2>
+              <p class="mt-3 text-lg text-zinc-600 md:text-xl">Załóż darmowe konto członkowskie</p>
+            </div>
+
+            <form id="registerForm" class="space-y-4 md:space-y-5">
+              <div class="group relative">
+                <i class="fa-regular fa-user absolute left-5 top-1/2 -translate-y-1/2 text-lg text-zinc-400 transition-colors group-focus-within:text-rose-600"></i>
+                <input type="text" name="name" required placeholder="Imię" class="min-h-[3.5rem] w-full rounded-2xl border-2 border-zinc-200 bg-white py-4 pl-14 pr-5 text-base font-medium text-zinc-900 placeholder:text-zinc-400 outline-none transition-all focus:border-rose-500 focus:ring-4 focus:ring-rose-100 md:min-h-16 md:text-lg md:pl-[3.75rem]">
+              </div>
+              <div class="group relative">
+                <i class="fa-regular fa-envelope absolute left-5 top-1/2 -translate-y-1/2 text-lg text-zinc-400 transition-colors group-focus-within:text-rose-600"></i>
+                <input type="email" name="email" required placeholder="E-mail" class="min-h-[3.5rem] w-full rounded-2xl border-2 border-zinc-200 bg-white py-4 pl-14 pr-5 text-base font-medium text-zinc-900 placeholder:text-zinc-400 outline-none transition-all focus:border-rose-500 focus:ring-4 focus:ring-rose-100 md:min-h-16 md:text-lg md:pl-[3.75rem]">
+              </div>
+              <div class="group relative">
+                <i class="fa-solid fa-lock absolute left-5 top-1/2 -translate-y-1/2 text-lg text-zinc-400 transition-colors group-focus-within:text-rose-600"></i>
+                <input type="password" id="registerPassword" name="password" required placeholder="Hasło" class="min-h-[3.5rem] w-full rounded-2xl border-2 border-zinc-200 bg-white py-4 pl-14 pr-14 text-base font-medium text-zinc-900 placeholder:text-zinc-400 outline-none transition-all focus:border-rose-500 focus:ring-4 focus:ring-rose-100 md:min-h-16 md:text-lg md:pl-[3.75rem] md:pr-16">
+                <button type="button" onclick="togglePassword('registerPassword', this)" class="absolute right-5 top-1/2 -translate-y-1/2 text-zinc-400 transition-colors hover:text-rose-600 md:text-lg">
+                  <i class="fa-regular fa-eye"></i>
+                </button>
+              </div>
+              <button type="submit" class="btn-primary btn-xl mt-1 w-full font-black">Zarejestruj się</button>
+            </form>
+          </div>
+
+          <div id="forgot-section" class="login-panel pointer-events-none absolute inset-0 flex flex-col -translate-x-full opacity-0 transition-all duration-500 ease-out">
+            <div class="mb-5 text-center md:mb-6">
+              <button type="button" onclick="switchView('login')" class="inline-flex items-center justify-center gap-2 text-sm font-bold text-zinc-500 transition-colors hover:text-rose-600 md:text-base">
+                <i class="fas fa-arrow-left text-xs md:text-sm"></i>
+                Wróć do logowania
+              </button>
+            </div>
+
+            <div class="mb-6 text-center md:mb-8">
+              <h2 class="text-4xl font-black tracking-tight text-zinc-900 md:text-5xl">Reset hasła</h2>
+              <p class="mt-3 text-lg text-zinc-600 md:text-xl">Wyślemy Ci instrukcje na e-mail</p>
+            </div>
+
+            <form id="forgotForm" class="space-y-4 md:space-y-5">
+              <div class="group relative">
+                <i class="fa-regular fa-envelope absolute left-5 top-1/2 -translate-y-1/2 text-lg text-zinc-400 transition-colors group-focus-within:text-rose-600"></i>
+                <input type="email" name="email" required placeholder="Twój adres e-mail" class="min-h-[3.5rem] w-full rounded-2xl border-2 border-zinc-200 bg-white py-4 pl-14 pr-5 text-base font-medium text-zinc-900 placeholder:text-zinc-400 outline-none transition-all focus:border-rose-500 focus:ring-4 focus:ring-rose-100 md:min-h-16 md:text-lg md:pl-[3.75rem]">
+              </div>
+              <button type="submit" class="btn-primary btn-xl mt-1 w-full font-black">Wyślij link</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="auth-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-stone-900/55 p-4 opacity-0 transition-opacity duration-200 ease-out" aria-hidden="true">
+  <div id="auth-modal-panel" class="relative w-full max-w-md origin-center rounded-2xl border border-stone-200/90 bg-white p-6 shadow-2xl shadow-stone-900/20 ring-1 ring-stone-900/5 transition-all duration-300 ease-out will-change-transform md:p-8">
+    <div id="auth-modal-icon-wrap" class="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-400 to-emerald-600 text-2xl text-white shadow-lg shadow-emerald-500/30">
+      <i class="fas fa-check" id="auth-modal-icon"></i>
+    </div>
+    <h3 id="auth-modal-title" class="text-center font-display text-xl font-black text-stone-900 md:text-2xl"></h3>
+    <p id="auth-modal-text" class="mt-3 text-center text-sm leading-relaxed text-stone-600 md:text-base"></p>
+    <button type="button" id="auth-modal-btn" class="btn-primary btn-xl mt-8 w-full font-bold">OK</button>
+  </div>
+</div>
+
+<script src="/js/auth.js"></script>
+<script>
+  const originalSwitchView = window.switchView;
+  window.switchView = function(view) {
+    if (typeof originalSwitchView === 'function') {
+      originalSwitchView(view);
+    }
+
+    ['login', 'register', 'forgot'].forEach(v => {
+      const dot = document.getElementById(`dot-${v}`);
+      if (v === view) {
+        dot.classList.replace('w-2.5', 'w-9');
+        dot.classList.replace('bg-zinc-300', 'bg-rose-600');
+      } else {
+        dot.classList.replace('w-9', 'w-2.5');
+        dot.classList.replace('bg-rose-600', 'bg-zinc-300');
+      }
+    });
+  };
+</script>
