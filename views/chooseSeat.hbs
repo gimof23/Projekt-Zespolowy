@@ -1,0 +1,155 @@
+<div class="relative flex-1 px-4 pb-24 pt-8 md:px-8">
+  <div class="relative z-10 mx-auto max-w-6xl">
+    <header class="mb-10 animate-slide-up">
+      <div class="flex flex-col gap-6 md:flex-row md:items-center">
+        <a href="javascript:history.back()" class="group flex h-12 w-12 items-center justify-center rounded-2xl border border-stone-200 bg-white text-stone-700 shadow-sm transition-all hover:border-rose-300 hover:bg-rose-500 hover:text-white active:scale-90">
+          <i class="fas fa-arrow-left transition-transform group-hover:-translate-x-1"></i>
+        </a>
+
+        <div class="flex flex-1 gap-6 md:items-center">
+          {{#if movieImage}}
+            <div class="relative h-32 w-20 shrink-0 overflow-hidden rounded-xl shadow-lg ring-1 ring-stone-200 md:h-40 md:w-28">
+              <img src="{{movieImage}}" alt="{{movieTitle}}" class="h-full w-full object-cover">
+            </div>
+          {{/if}}
+          <div class="min-w-0 flex-1">
+            <h1 class="text-3xl font-black tracking-tight text-stone-900 md:text-4xl">{{movieTitle}}</h1>
+            <div class="mt-3 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm font-medium text-stone-600">
+              <span class="flex items-center gap-2 italic"><i class="fas fa-calendar-alt text-rose-500"></i>{{date}}</span>
+              <span class="flex items-center gap-2 italic"><i class="far fa-clock text-rose-500"></i>{{time}}</span>
+              <span class="flex items-center gap-2 text-[10px] font-black uppercase italic tracking-widest"><i class="fas fa-door-open text-rose-500"></i>Sala: {{hallName}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="grid gap-12 lg:grid-cols-3">
+      <div class="space-y-12 lg:col-span-2">
+        <ul class="flex flex-wrap justify-center gap-8 animate-fade-in">
+          <li class="flex items-center gap-3">
+            <div class="h-6 w-6 rounded-lg border border-stone-300 bg-white shadow-inner"></div>
+            <span class="text-[10px] font-black uppercase tracking-widest text-stone-500">Wolne</span>
+          </li>
+          <li class="flex items-center gap-3">
+            <div class="h-6 w-6 rounded-lg bg-gradient-to-br from-rose-500 to-rose-600 shadow-[0_0_12px_rgba(244,63,94,0.35)]"></div>
+            <span class="text-[10px] font-black uppercase tracking-widest text-rose-600">Twoje</span>
+          </li>
+          <li class="flex items-center gap-3">
+            <div class="h-6 w-6 rounded-lg bg-stone-300 opacity-70"></div>
+            <span class="text-[10px] font-black uppercase tracking-widest text-stone-500">Zajęte</span>
+          </li>
+          <li class="flex items-center gap-3">
+            <div class="h-6 w-6 rounded-lg bg-gradient-to-br from-violet-500 to-indigo-600 shadow-[0_0_12px_rgba(139,92,246,0.35)]"></div>
+            <span class="text-[10px] font-black uppercase tracking-widest text-violet-600">Kanapa</span>
+          </li>
+        </ul>
+
+        <div class="relative rounded-[3rem] border border-stone-200 bg-white/90 p-8 shadow-xl transition-all md:p-12 animate-fade-in" style="animation-delay: 0.1s">
+          <div class="mb-16 text-center">
+            <div class="mx-auto h-1.5 max-w-md rounded-full bg-gradient-to-r from-transparent via-rose-400 to-amber-300"></div>
+            <p class="mt-4 overflow-hidden text-[11px] font-black uppercase tracking-[0.5em] text-stone-800">
+               <span class="inline-block animate-pulse">Ekran</span>
+            </p>
+          </div>
+
+          <div class="scrollbar-hide overflow-x-auto pb-4">
+            <div class="theater-container inline-block min-w-full px-2">
+              <div id="seat-map" class="seat-grid mx-auto grid gap-2 p-2 sm:gap-3"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="space-y-6 lg:mt-24 animate-slide-up" style="animation-delay: 0.2s">
+        <div class="glass-card rounded-[2.5rem] p-8 shadow-xl">
+          <div class="selected-seats-container">
+            <h3 class="mb-6 flex items-center justify-between text-[11px] font-black uppercase tracking-widest text-stone-500">
+              Podsumowanie
+              <i class="fas fa-shopping-cart text-rose-500"></i>
+            </h3>
+            <ul id="selected-seats-list" class="min-h-[4rem] space-y-3">
+              <li class="empty-list-msg flex flex-col items-center justify-center py-4 text-center italic text-stone-500">
+                <i class="fas fa-chair mb-2 text-xl opacity-30"></i>
+                <span class="text-xs">Wybierz miejsca na planie</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="my-8 h-px bg-stone-200"></div>
+
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+               <span class="text-sm font-medium text-stone-600">Miejsc:</span>
+               <span id="count" class="text-lg font-black text-stone-900">0</span>
+            </div>
+            <div class="flex items-center justify-between">
+               <span class="text-sm font-medium text-stone-600">Do zapłaty:</span>
+               <div class="text-right">
+                  <span id="total" class="text-3xl font-black text-rose-600">0.00</span>
+                  <span class="ml-1 text-xs font-black text-rose-800">PLN</span>
+               </div>
+            </div>
+          </div>
+
+          <input type="hidden" name="screeningId" id="screening-id" value="{{screeningId}}">
+          <input type="hidden" name="selectedSeats" id="selected-seats-input">
+
+          <button type="button" id="checkout-btn" class="btn-primary mt-10 w-full py-5 text-base font-black disabled:scale-100 disabled:opacity-25 disabled:grayscale" disabled>
+            Rezerwuję bilety
+          </button>
+        </div>
+
+        <div class="rounded-3xl border border-sky-200 bg-sky-50/80 p-6">
+           <p class="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-sky-800">
+             <i class="fas fa-info-circle text-sky-500"></i> Informacja
+           </p>
+           <p class="mt-3 text-xs leading-relaxed text-stone-600">Masz 15 minut na ukończenie rezerwacji po wybraniu pierwszego miejsca. Bilety zostaną przesłane na Twój adres e-mail.</p>
+        </div>
+      </aside>
+    </div>
+  </div>
+</div>
+
+<div id="confirmation-modal" class="fixed inset-0 z-[200] hidden items-center justify-center bg-stone-900/50 p-4 animate-fade-in">
+  <div class="modal-content w-full max-w-md overflow-hidden rounded-[3rem] border border-stone-200 bg-white shadow-2xl">
+    <div class="bg-gradient-to-r from-rose-500 to-amber-500 p-8 text-center text-white">
+       <div class="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-white/20 shadow-inner">
+          <i class="fas fa-ticket-alt text-4xl"></i>
+       </div>
+       <h2 class="text-2xl font-black tracking-tight">Finalizacja zamówienia</h2>
+    </div>
+
+    <div class="p-8">
+      <p class="text-sm font-medium italic text-stone-600">Wybrane miejsca:</p>
+      <div id="modal-seats-summary" class="modal-summary mt-4 max-h-48 space-y-2 overflow-y-auto rounded-3xl border border-stone-200 bg-stone-50 p-5 text-sm scrollbar-hide"></div>
+
+      <div class="mt-8 flex items-center justify-between border-t border-stone-200 pt-8">
+        <span class="text-sm font-bold uppercase tracking-widest text-stone-500">Suma:</span>
+        <div class="text-right">
+          <span id="modal-total-price" class="text-3xl font-black text-rose-600">0.00</span>
+          <span class="ml-1 text-xs font-black uppercase text-rose-800">pln</span>
+        </div>
+      </div>
+
+      <div class="mt-10 flex gap-4">
+        <button type="button" id="cancel-booking-btn" class="flex-1 rounded-2xl border border-stone-200 bg-white py-4 text-sm font-black text-stone-800 transition-all hover:bg-stone-50 active:scale-95">
+          Wróć
+        </button>
+        <button type="button" id="confirm-booking-btn" class="flex-[2] rounded-2xl bg-rose-600 py-4 text-sm font-black text-white shadow-lg shadow-rose-300/50 transition-all hover:bg-rose-500 active:scale-95">
+          Zapłać i zarezerwuj
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    window.screeningData = {
+        layout: {{{json rows}}},
+        bookedSeats: {{{json bookedSeats}}},
+        priceStandard: {{priceStandard}},
+        priceWheel: {{priceWheel}},
+        priceVip: {{priceVip}}
+    };
+</script>

@@ -1,0 +1,115 @@
+<div class="min-h-screen bg-stone-100 py-10 text-stone-900">
+    <div class="mx-auto max-w-6xl px-4">
+        <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <a href="/admin-panel" class="inline-flex w-fit items-center gap-2 rounded-lg bg-stone-300 px-4 py-2 text-sm font-bold text-stone-800 transition hover:bg-stone-400">&larr; Wróć</a>
+            <h1 class="text-2xl font-extrabold text-stone-800 sm:text-3xl">Zarządzanie filmami</h1>
+            <button type="button" id="addMovieBtn" class="inline-flex items-center gap-2 rounded-lg bg-rose-600 px-4 py-2.5 text-sm font-bold text-white transition hover:bg-rose-500">
+                <i class="fas fa-plus"></i> Dodaj nowy film
+            </button>
+        </div>
+
+        <div class="movies-table-container overflow-auto rounded-xl border border-stone-200 bg-white shadow-sm">
+            <table class="admin-table min-w-[800px] w-full border-collapse text-sm">
+                <thead>
+                    <tr class="border-b border-stone-200 bg-stone-100">
+                        <th class="p-3 text-left font-bold text-stone-700">ID</th>
+                        <th class="p-3 text-left font-bold text-stone-700">Obraz</th>
+                        <th class="p-3 text-left font-bold text-stone-700">Tytuł</th>
+                        <th class="p-3 text-left font-bold text-stone-700">Czas (min)</th>
+                        <th class="p-3 text-left font-bold text-stone-700">Premiera</th>
+                        <th class="p-3 text-left font-bold text-stone-700">Koniec</th>
+                        <th class="p-3 text-left font-bold text-stone-700">Akcje</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each movies}}
+                    <tr class="border-b border-stone-100 hover:bg-stone-50">
+                        <td class="p-3">#{{this.id}}</td>
+                        <td class="p-3">
+                            {{#if this.image_url}}
+                            <img src="{{this.image_url}}" alt="" class="h-14 w-10 rounded object-cover">
+                            {{else}}
+                            <span class="text-stone-400">Brak</span>
+                            {{/if}}
+                        </td>
+                        <td class="p-3 font-bold">{{this.title}}</td>
+                        <td class="p-3">{{this.duration}} min</td>
+                        <td class="p-3">{{this.release_date}}</td>
+                        <td class="p-3">{{this.end_date}}</td>
+                        <td class="p-3">
+                            <div class="action-buttons flex gap-1">
+                                <button type="button" class="edit-movie-btn inline-flex h-9 w-9 items-center justify-center rounded-lg bg-amber-500 text-white transition hover:bg-amber-600"
+                                    data-id="{{this.id}}"
+                                    data-title="{{this.title}}"
+                                    data-description="{{this.description}}"
+                                    data-duration="{{this.duration}}"
+                                    data-release-date="{{this.release_date}}"
+                                    data-end-date="{{this.end_date}}"
+                                    data-image-url="{{this.image_url}}"
+                                    data-youtube-link="{{this.youtube_link}}">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <form action="/admin/movies/delete" method="POST" class="inline" onsubmit="return confirm('Czy na pewno usunąć film: {{this.title}}?');">
+                                    <input type="hidden" name="id" value="{{this.id}}">
+                                    <button type="submit" class="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-rose-500 text-white transition hover:bg-rose-600">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="movieModal" class="fixed inset-x-0 top-[var(--layout-modal-top)] bottom-[var(--layout-modal-bottom)] z-[900] hidden min-h-0 w-full items-center justify-center overflow-y-auto bg-stone-900/55 px-4 py-3 sm:px-5 sm:py-4">
+    <div class="modal-content w-full max-w-lg rounded-2xl border border-stone-200 bg-white shadow-2xl">
+        <div class="modal-header flex items-center justify-between border-b border-stone-200 px-5 py-4">
+            <h2 id="modalTitle" class="text-xl font-bold text-stone-800">Dodaj Film</h2>
+            <button type="button" id="closeModalBtn" class="text-3xl leading-none text-stone-500 transition hover:text-rose-500">&times;</button>
+        </div>
+
+        <form id="movieForm" action="/admin/movies/add" method="POST" class="p-5">
+            <input type="hidden" name="id" id="movieId">
+            <div class="form-grid grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div class="form-group full-width flex flex-col sm:col-span-2">
+                    <label class="mb-1 text-sm font-semibold text-stone-600">Tytuł Filmu</label>
+                    <input type="text" name="title" id="inputTitle" required class="rounded-lg border border-stone-300 px-3 py-2 text-stone-900">
+                </div>
+                <div class="form-group flex flex-col">
+                    <label class="mb-1 text-sm font-semibold text-stone-600">Data premiery</label>
+                    <input type="date" name="release_date" id="inputReleaseDate" required class="rounded-lg border border-stone-300 px-3 py-2 text-stone-900">
+                </div>
+                <div class="form-group flex flex-col">
+                    <label class="mb-1 text-sm font-semibold text-stone-600">Data końcowa</label>
+                    <input type="date" name="end_date" id="inputEndDate" class="rounded-lg border border-stone-300 px-3 py-2 text-stone-900">
+                </div>
+                <div class="form-group flex flex-col">
+                    <label class="mb-1 text-sm font-semibold text-stone-600">Czas trwania (min)</label>
+                    <input type="number" name="duration" id="inputDuration" placeholder="np. 120" class="rounded-lg border border-stone-300 px-3 py-2 text-stone-900">
+                </div>
+                <div class="form-group full-width flex flex-col sm:col-span-2">
+                    <label class="mb-1 text-sm font-semibold text-stone-600">Link do obrazka</label>
+                    <input type="text" name="image_url" id="inputImageUrl" placeholder="https://..." class="rounded-lg border border-stone-300 px-3 py-2 text-stone-900">
+                </div>
+                <div class="form-group full-width flex flex-col sm:col-span-2">
+                    <label class="mb-1 text-sm font-semibold text-stone-600">Link YouTube</label>
+                    <input type="text" name="youtube_link" id="inputYoutube" placeholder="https://youtube.com..." class="rounded-lg border border-stone-300 px-3 py-2 text-stone-900">
+                </div>
+                <div class="form-group full-width flex flex-col sm:col-span-2">
+                    <label class="mb-1 text-sm font-semibold text-stone-600">Opis</label>
+                    <textarea name="description" id="inputDescription" rows="5" class="rounded-lg border border-stone-300 px-3 py-2 text-stone-900"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer mt-6 flex justify-end gap-3 border-t border-stone-200 pt-4">
+                <button type="button" id="cancelModalBtn" class="rounded-lg border border-stone-300 px-5 py-2 font-semibold text-stone-700 transition hover:bg-stone-100">Anuluj</button>
+                <button type="submit" class="rounded-lg bg-rose-600 px-6 py-2 font-bold text-white transition hover:bg-rose-500">Zapisz</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="/js/adminPanel.js"></script>
