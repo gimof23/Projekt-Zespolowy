@@ -1,0 +1,102 @@
+<div class="relative flex-1 px-4 pb-12 pt-10 md:px-8 md:pb-16">
+  <div class="relative z-10 mx-auto max-w-7xl">
+    <header class="mb-12 text-center animate-slide-up md:mb-16">
+      <p class="font-display text-xs font-bold uppercase tracking-[0.28em] text-rose-600 sm:text-sm">Nadchodzące premiery</p>
+      <h1 class="font-display mt-4 text-4xl font-black tracking-tight text-stone-900 sm:text-5xl md:text-6xl">Zapowiedzi</h1>
+      <p class="mx-auto mt-5 max-w-2xl text-base font-medium text-stone-600 md:text-lg">Filmy z datą premiery w przyszłości — zarezerwuj miejsce, gdy tylko otworzymy sprzedaż.</p>
+      <div class="mx-auto mt-8 flex justify-center">
+        <div class="h-1 w-32 rounded-full bg-gradient-to-r from-rose-400 via-pink-500 to-amber-400 shadow-sm shadow-rose-300/50"></div>
+      </div>
+    </header>
+
+    {{#if movies.length}}
+      <div class="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+        {{#each movies}}
+          <article
+            class="premiere-card premiere-card-in group relative flex flex-col overflow-hidden rounded-2xl border border-stone-200/90 bg-white/95 shadow-lg shadow-stone-900/10 ring-1 ring-stone-900/5 transition-all duration-500 ease-out hover:-translate-y-1.5 hover:border-rose-200/60 hover:shadow-2xl hover:shadow-rose-200/35 hover:ring-rose-200/20"
+            style="animation-delay: calc({{@index}} * 90ms);"
+          >
+            <div class="relative aspect-[2/3] overflow-hidden bg-gradient-to-br from-stone-200 to-stone-300">
+              {{#if this.image_url}}
+                <img src="{{this.image_url}}" alt="{{this.title}}" class="h-full w-full object-cover transition duration-700 ease-out group-hover:scale-105">
+              {{else}}
+                <div class="flex h-full flex-col items-center justify-center gap-3 text-stone-500">
+                  <i class="fas fa-clapperboard text-5xl opacity-30 transition duration-500 group-hover:scale-110 group-hover:opacity-50"></i>
+                  <span class="font-display text-xs font-bold uppercase tracking-widest text-stone-400 sm:text-sm">Plakat wkrótce</span>
+                </div>
+              {{/if}}
+              <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-stone-950/85 via-stone-900/25 to-transparent"></div>
+              <div class="absolute inset-x-0 bottom-0 p-4 pt-12 md:p-5 md:pt-16">
+                <div class="inline-flex items-center gap-2 rounded-xl bg-stone-950/70 px-3 py-2 text-xs font-bold text-white shadow-lg ring-1 ring-white/20 sm:text-sm md:gap-2.5 md:px-4 md:py-2.5">
+                  <i class="fas fa-calendar-star text-rose-300 animate-premiere-glow sm:text-sm"></i>
+                  <span class="font-display tracking-tight">Premiera {{this.formattedDate}}</span>
+                </div>
+              </div>
+              <div class="pointer-events-none absolute inset-0 opacity-0 transition duration-500 group-hover:opacity-100">
+                <div class="absolute inset-0 bg-gradient-to-tr from-rose-500/20 via-transparent to-amber-400/15"></div>
+              </div>
+            </div>
+
+            <div class="flex flex-1 flex-col gap-3 p-5 md:gap-4 md:p-6">
+              <div class="flex items-start justify-between gap-3">
+                <h2 class="font-display text-lg font-bold leading-snug text-stone-900 transition-colors duration-300 group-hover:text-rose-600 md:text-xl">{{this.title}}</h2>
+                <span class="shrink-0 rounded-lg bg-amber-50 px-2.5 py-1 text-[11px] font-bold tabular-nums text-amber-900 ring-1 ring-amber-200/90 md:px-3 md:py-1.5 md:text-xs">{{this.duration}} min</span>
+              </div>
+              <p class="line-clamp-3 flex-1 text-sm leading-relaxed text-stone-600 md:text-base md:leading-relaxed">{{this.description}}</p>
+              <div class="mt-0.5 flex flex-col gap-2.5 border-t border-stone-100 pt-4 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
+                <span class="font-display text-xs font-bold uppercase tracking-wide text-stone-500 sm:text-sm">Status rezerwacji</span>
+                <span class="premiere-badge relative inline-flex w-fit items-center gap-2 overflow-hidden rounded-xl bg-gradient-to-r from-rose-600 via-rose-500 to-pink-500 px-3 py-2 text-xs font-bold text-white shadow-lg shadow-rose-500/30 sm:text-sm md:px-4 md:py-2.5">
+                  <span class="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/25 to-transparent transition duration-700 group-hover:translate-x-full"></span>
+                  <i class="fas fa-ticket relative text-sm opacity-95 sm:text-base"></i>
+                  <span class="relative font-display tracking-tight">Wkrótce dostępny</span>
+                </span>
+              </div>
+            </div>
+          </article>
+        {{/each}}
+      </div>
+    {{else}}
+      <div class="mx-auto max-w-lg animate-fade-in rounded-3xl border border-stone-200/90 bg-white/95 px-8 py-16 text-center shadow-xl shadow-stone-900/5 ring-1 ring-stone-900/5 md:py-20" style="animation-delay: 0.12s">
+        <div class="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-stone-100 to-stone-200 text-3xl text-stone-400 shadow-inner ring-1 ring-stone-200/80">
+          <i class="fas fa-film"></i>
+        </div>
+        <h3 class="font-display text-2xl font-black text-stone-900 md:text-3xl">Na razie cisza na planie</h3>
+        <p class="mt-4 text-base leading-relaxed text-stone-600">Brak zapowiedzianych premier. Wróć tu niebawem — lista się rozrośnie.</p>
+      </div>
+    {{/if}}
+  </div>
+</div>
+
+<style>
+  .premiere-card-in {
+    opacity: 0;
+    animation: premiere-card-in 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  @keyframes premiere-card-in {
+    from {
+      opacity: 0;
+      transform: translateY(1.5rem) scale(0.97);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  .premiere-badge {
+    animation: premiere-badge-pulse 2.4s ease-in-out infinite;
+  }
+
+  @keyframes premiere-badge-pulse {
+    0%,
+    100% {
+      box-shadow: 0 10px 28px -8px rgba(225, 29, 72, 0.35);
+    }
+
+    50% {
+      box-shadow: 0 14px 36px -6px rgba(225, 29, 72, 0.5);
+    }
+  }
+</style>

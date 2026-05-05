@@ -1,0 +1,371 @@
+<div class="relative flex-1 px-4 pb-14 pt-10 md:px-8 md:pb-20">
+  <div class="relative z-10 mx-auto max-w-7xl">
+    <div class="relative mb-10 overflow-hidden rounded-3xl border border-stone-200/90 bg-gradient-to-br from-white via-rose-50/40 to-amber-50/30 p-6 shadow-xl shadow-stone-900/10 ring-1 ring-stone-900/5 animate-slide-up md:mb-12 md:p-10">
+      <div class="pointer-events-none absolute -right-20 -top-20 h-56 w-56 rounded-full bg-rose-300/25 blur-3xl"></div>
+      <div class="pointer-events-none absolute -bottom-16 left-1/3 h-48 w-48 rounded-full bg-amber-200/30 blur-3xl"></div>
+      <div class="relative flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+        <div class="min-w-0 flex-1">
+          <p class="font-display text-xs font-bold uppercase tracking-[0.28em] text-rose-600 sm:text-sm">Panel klienta</p>
+          <h1 class="font-display mt-3 text-3xl font-black tracking-tight text-stone-900 sm:text-4xl md:text-5xl lg:text-[2.75rem] lg:leading-tight">
+            Cześć, <span class="bg-gradient-to-r from-rose-600 via-pink-600 to-rose-500 bg-clip-text text-transparent">{{user.name}}</span>
+          </h1>
+          <p class="mt-3 max-w-xl text-base text-stone-600 md:text-lg">Twoje bilety, historia transakcji i ustawienia konta w jednym, przejrzystym panelu.</p>
+        </div>
+        <div class="flex w-full justify-stretch lg:w-auto lg:max-w-md lg:shrink-0 lg:justify-end">
+          <div class="flex w-full items-center gap-4 rounded-2xl border border-white/80 bg-white/90 px-5 py-4 shadow-lg shadow-stone-900/5 ring-1 ring-stone-200/80 sm:w-auto">
+            <div class="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-rose-500 to-pink-600 text-2xl text-white shadow-lg shadow-rose-500/35">
+              <i class="fas fa-user"></i>
+            </div>
+            <div class="min-w-0">
+              <p class="truncate font-display text-base font-bold text-stone-900">{{user.name}}</p>
+              <p class="truncate text-sm font-medium text-stone-500">{{user.email}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {{#if error}}
+      <div class="mb-6 flex items-start gap-4 rounded-2xl border border-rose-200 bg-rose-50/95 p-4 text-rose-900 shadow-md animate-fade-in md:p-5">
+        <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-rose-500/15 text-rose-600">
+          <i class="fas fa-circle-exclamation text-xl"></i>
+        </div>
+        <span class="pt-1 text-sm font-medium leading-relaxed md:text-base">{{error}}</span>
+      </div>
+    {{/if}}
+
+    {{#if message}}
+      <div class="mb-6 flex items-start gap-4 rounded-2xl border border-emerald-200 bg-emerald-50/95 p-4 text-emerald-900 shadow-md animate-fade-in md:p-5">
+        <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-emerald-500/15 text-emerald-600">
+          <i class="fas fa-circle-check text-xl"></i>
+        </div>
+        <span class="pt-1 text-sm font-medium leading-relaxed md:text-base">{{message}}</span>
+      </div>
+    {{/if}}
+
+    <div class="relative mb-8 overflow-hidden rounded-2xl border border-stone-200/90 bg-gradient-to-b from-white via-white to-stone-50/90 p-3 shadow-lg shadow-stone-900/10 ring-1 ring-stone-900/5 animate-fade-in md:mb-10 md:p-4" style="animation-delay: 0.04s">
+      <div class="mb-3 flex items-center justify-between gap-3 px-0.5 md:mb-4">
+        <p class="font-display text-[10px] font-bold uppercase tracking-[0.22em] text-stone-400 md:text-xs">Sekcje konta</p>
+        <span class="hidden text-[10px] font-medium text-stone-400 sm:inline md:text-xs">Wybierz zakładkę poniżej</span>
+      </div>
+      <div class="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3 lg:grid-cols-5">
+        <button type="button" class="user-card group relative flex w-full items-center gap-3 overflow-hidden rounded-xl border-2 border-rose-300 bg-white p-3 text-left shadow-md ring-2 ring-rose-200 transition-all hover:shadow-lg active:scale-[0.99] md:gap-3.5 md:rounded-2xl md:p-4" data-target="section-active">
+          <div class="absolute inset-y-0 left-0 w-1 rounded-full bg-gradient-to-b from-rose-500 to-pink-500"></div>
+          <div class="relative ml-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-rose-500 to-pink-600 text-base text-white shadow-md shadow-rose-500/30 transition group-hover:scale-105 md:h-12 md:w-12 md:text-lg">
+            <i class="fas fa-ticket-alt"></i>
+          </div>
+          <div class="min-w-0 flex-1 pr-1">
+            <div class="flex items-center justify-between gap-1">
+              <h3 class="font-display text-xs font-bold text-stone-900 md:text-sm">Aktywne</h3>
+              <span class="shrink-0 rounded-full bg-rose-100 px-2 py-0.5 font-display text-[10px] font-black text-rose-700 md:text-xs">{{activeCount}}</span>
+            </div>
+            <p class="mt-0.5 truncate text-[9px] font-semibold uppercase tracking-wide text-stone-500 md:text-[10px]">Bilety</p>
+          </div>
+        </button>
+
+        <button type="button" class="user-card group relative flex w-full items-center gap-3 overflow-hidden rounded-xl border-2 border-stone-200 bg-stone-50/80 p-3 text-left shadow-sm transition-all hover:border-stone-300 hover:shadow-md active:scale-[0.99] md:gap-3.5 md:rounded-2xl md:p-4" data-target="section-history">
+          <div class="absolute inset-y-0 left-0 w-1 rounded-full bg-stone-300 transition-colors group-hover:bg-stone-600"></div>
+          <div class="relative ml-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-stone-200 text-base text-stone-600 transition-all group-hover:bg-stone-800 group-hover:text-white md:h-12 md:w-12 md:text-lg">
+            <i class="fas fa-clock-rotate-left"></i>
+          </div>
+          <div class="min-w-0 flex-1 pr-1">
+            <div class="flex items-center justify-between gap-1">
+              <h3 class="font-display text-xs font-bold text-stone-900 md:text-sm">Historia</h3>
+              <span class="shrink-0 rounded-full bg-stone-200/90 px-2 py-0.5 font-display text-[10px] font-black text-stone-700 md:text-xs">{{historyCount}}</span>
+            </div>
+            <p class="mt-0.5 truncate text-[9px] font-semibold uppercase tracking-wide text-stone-500 md:text-[10px]">Zamówienia</p>
+          </div>
+        </button>
+
+        <button type="button" class="user-card group relative flex w-full items-center gap-3 overflow-hidden rounded-xl border-2 border-stone-200 bg-stone-50/80 p-3 text-left shadow-sm transition-all hover:border-stone-300 hover:shadow-md active:scale-[0.99] md:gap-3.5 md:rounded-2xl md:p-4" data-target="section-cancelled">
+          <div class="absolute inset-y-0 left-0 w-1 rounded-full bg-stone-300 transition-colors group-hover:bg-amber-500"></div>
+          <div class="relative ml-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-stone-200 text-base text-stone-600 transition-all group-hover:bg-amber-600 group-hover:text-white md:h-12 md:w-12 md:text-lg">
+            <i class="fas fa-ban"></i>
+          </div>
+          <div class="min-w-0 flex-1 pr-1">
+            <div class="flex items-center justify-between gap-1">
+              <h3 class="font-display text-xs font-bold text-stone-900 md:text-sm">Odwołane</h3>
+              <span class="shrink-0 rounded-full bg-amber-100 px-2 py-0.5 font-display text-[10px] font-black text-amber-800 md:text-xs">{{cancelledCount}}</span>
+            </div>
+            <p class="mt-0.5 truncate text-[9px] font-semibold uppercase tracking-wide text-stone-500 md:text-[10px]">Zwroty</p>
+          </div>
+        </button>
+
+        <button type="button" class="user-card group relative flex w-full items-center gap-3 overflow-hidden rounded-xl border-2 border-stone-200 bg-stone-50/80 p-3 text-left shadow-sm transition-all hover:border-stone-300 hover:shadow-md active:scale-[0.99] md:gap-3.5 md:rounded-2xl md:p-4" data-target="section-password">
+          <div class="absolute inset-y-0 left-0 w-1 rounded-full bg-stone-300 transition-colors group-hover:bg-violet-500"></div>
+          <div class="relative ml-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-stone-200 text-base text-stone-600 transition-all group-hover:bg-violet-600 group-hover:text-white md:h-12 md:w-12 md:text-lg">
+            <i class="fas fa-key"></i>
+          </div>
+          <div class="min-w-0 flex-1 pr-1">
+            <div class="flex items-center justify-between gap-1">
+              <h3 class="font-display text-xs font-bold text-stone-900 md:text-sm">Hasło</h3>
+              <span class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-violet-100 text-violet-600 md:h-6 md:w-6">
+                <i class="fas fa-lock text-[9px] md:text-[10px]"></i>
+              </span>
+            </div>
+            <p class="mt-0.5 truncate text-[9px] font-semibold uppercase tracking-wide text-stone-500 md:text-[10px]">Konto</p>
+          </div>
+        </button>
+
+        <button type="button" class="user-card group relative col-span-2 flex w-full items-center gap-3 overflow-hidden rounded-xl border-2 border-rose-200 bg-rose-50/50 p-3 text-left shadow-sm transition-all hover:border-rose-300 hover:bg-rose-50 active:scale-[0.99] sm:col-span-1 md:gap-3.5 md:rounded-2xl md:p-4" data-target="section-delete">
+          <div class="absolute inset-y-0 left-0 w-1 rounded-full bg-rose-500"></div>
+          <div class="relative ml-0.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-rose-600 text-base text-white shadow-md shadow-rose-500/25 transition group-hover:scale-105 md:h-12 md:w-12 md:text-lg">
+            <i class="fas fa-trash-can"></i>
+          </div>
+          <div class="min-w-0 flex-1 pr-1">
+            <h3 class="font-display text-xs font-bold text-rose-900 md:text-sm">Usuń konto</h3>
+            <p class="mt-0.5 text-[9px] font-semibold uppercase tracking-wide text-rose-600/90 md:text-[10px]">Strefa ryzyka</p>
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <div class="content-wrapper animate-fade-in" style="animation-delay: 0.08s">
+        <div id="section-active" class="content-section relative overflow-hidden rounded-3xl border border-stone-200/90 bg-white p-6 shadow-xl shadow-stone-900/10 ring-1 ring-stone-900/5 md:p-8 lg:p-10">
+          <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-rose-500 via-pink-500 to-amber-400"></div>
+          <div class="mb-8 flex flex-col gap-4 border-b border-stone-100 pb-6 pt-1 md:flex-row md:items-end md:justify-between">
+            <div>
+              <h2 class="font-display flex items-center gap-3 text-2xl font-black text-stone-900 md:text-3xl">
+                <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-rose-500/15 to-pink-500/10 text-rose-600">
+                  <i class="fas fa-ticket-alt text-lg"></i>
+                </span>
+                Aktywne bilety
+              </h2>
+              <p class="mt-2 max-w-lg text-sm text-stone-500">Nadchodzące seanse — możesz zwolnić miejsce, jeśli plany się zmienią.</p>
+            </div>
+          </div>
+          {{#if activeTickets.length}}
+            <div class="grid gap-6">
+              {{#each activeTickets}}
+                <div class="profile-ticket-rise group relative overflow-hidden rounded-2xl border border-stone-200/90 bg-gradient-to-b from-white to-stone-50/90 shadow-lg shadow-stone-900/5 transition-all duration-300 hover:border-rose-200/90 hover:shadow-xl hover:shadow-rose-100/30 md:flex md:items-stretch" style="animation-delay: calc({{@index}} * 65ms);">
+                  <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-rose-400/80 via-pink-500/70 to-transparent opacity-90"></div>
+                  <div class="flex flex-col gap-5 p-5 md:flex-row md:gap-8 md:p-7">
+                    <div class="relative mx-auto shrink-0 md:mx-0">
+                      <div class="h-56 w-40 overflow-hidden rounded-2xl shadow-xl ring-2 ring-white md:h-48 md:w-36">
+                        <img src="{{this.image_url}}" alt="{{this.movie_title}}" class="h-full w-full object-cover transition duration-700 group-hover:scale-105">
+                      </div>
+                      <p class="mt-2 text-center font-mono text-[10px] font-bold uppercase tracking-widest text-stone-400 md:text-left">#{{this.id}}</p>
+                    </div>
+                    <div class="min-w-0 flex-1 space-y-4">
+                      <div>
+                        <h3 class="font-display text-xl font-bold leading-tight text-stone-900 md:text-2xl">{{this.movie_title}}</h3>
+                        <div class="mt-3 flex flex-wrap gap-2">
+                          <span class="inline-flex items-center gap-2 rounded-xl bg-rose-50 px-3 py-2 text-sm font-semibold text-rose-900 ring-1 ring-rose-100"><i class="far fa-calendar text-rose-500"></i> {{this.displayDate}}</span>
+                          <span class="inline-flex items-center gap-2 rounded-xl bg-stone-100 px-3 py-2 text-sm font-semibold text-stone-800 ring-1 ring-stone-200/80"><i class="far fa-clock text-rose-500"></i> {{this.displayTime}}</span>
+                        </div>
+                      </div>
+                      <div class="flex flex-wrap gap-2">
+                        <span class="rounded-xl bg-stone-900 px-4 py-2.5 text-xs font-bold text-white shadow-md md:text-sm">
+                          <span class="text-stone-400">Miejsce</span>
+                          <span class="ml-2 font-black text-white">{{this.seat_number}}</span>
+                        </span>
+                        <span class="rounded-xl border-2 border-stone-200 bg-white px-4 py-2.5 text-xs font-bold text-stone-800 md:text-sm">
+                          <span class="text-stone-500">Sala</span>
+                          <span class="ml-2 font-black">{{this.hall_name}}</span>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="flex flex-col justify-center gap-4 border-t border-dashed border-stone-200 pt-5 md:w-52 md:shrink-0 md:border-l md:border-t-0 md:border-solid md:pl-8 md:pt-0">
+                      <div class="flex items-center justify-center gap-2 rounded-xl bg-emerald-50 px-3 py-2 text-xs font-black uppercase tracking-wide text-emerald-700 ring-1 ring-emerald-100 md:justify-end">
+                        <span class="relative flex h-2.5 w-2.5">
+                          <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60"></span>
+                          <span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500"></span>
+                        </span>
+                        Opłacony
+                      </div>
+                      <button type="button" class="btn-return-ticket flex min-h-[3rem] items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-rose-600 to-pink-600 px-4 py-3 text-sm font-black text-white shadow-lg shadow-rose-500/25 transition-all hover:from-rose-500 hover:to-pink-500 hover:shadow-xl active:scale-[0.98]" data-id="{{this.id}}">
+                        <i class="fas fa-undo"></i> Zwróć bilet
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              {{/each}}
+            </div>
+          {{else}}
+            <div class="relative overflow-hidden rounded-2xl border border-dashed border-stone-300 bg-gradient-to-br from-stone-50 to-rose-50/30 px-6 py-20 text-center md:py-24">
+              <div class="pointer-events-none absolute right-0 top-0 h-32 w-32 rounded-full bg-rose-200/40 blur-2xl"></div>
+              <div class="relative mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-3xl bg-gradient-to-br from-rose-100 to-pink-100 text-3xl text-rose-500 shadow-inner ring-1 ring-rose-200/60">
+                <i class="fas fa-ticket-alt"></i>
+              </div>
+              <h3 class="font-display relative text-xl font-black text-stone-900 md:text-2xl">Brak aktywnych biletów</h3>
+              <p class="relative mx-auto mt-2 max-w-md text-stone-600">Wybierz film w repertuarze i zarezerwuj miejsce — wtedy pojawi się tutaj.</p>
+              <a href="/repertuar" class="btn-primary btn-xl relative mt-10 inline-flex items-center gap-2 px-10 font-black">
+                <i class="fas fa-film"></i> Przejdź do repertuaru
+              </a>
+            </div>
+          {{/if}}
+        </div>
+
+        <div id="section-history" class="content-section relative hidden overflow-hidden rounded-3xl border border-stone-200/90 bg-white p-6 shadow-xl shadow-stone-900/10 ring-1 ring-stone-900/5 md:p-8 lg:p-10">
+          <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-stone-400 via-stone-300 to-rose-200"></div>
+          <div class="mb-8 flex flex-col gap-4 border-b border-stone-100 pb-6 pt-1 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <h2 class="font-display flex items-center gap-3 text-2xl font-black text-stone-900 md:text-3xl">
+                <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-stone-200 text-stone-700">
+                  <i class="fas fa-clock-rotate-left text-lg"></i>
+                </span>
+                Historia zakupów
+              </h2>
+            </div>
+            <div class="inline-flex items-center gap-3 self-start rounded-2xl border border-rose-200/80 bg-gradient-to-r from-rose-600 to-pink-600 px-6 py-3.5 text-white shadow-lg shadow-rose-500/25 sm:self-auto">
+              <span class="text-xs font-bold uppercase tracking-wider text-rose-100">Suma</span>
+              <strong class="font-display text-2xl font-black tabular-nums">{{totalHistorySpent}} zł</strong>
+            </div>
+          </div>
+          <div class="overflow-hidden rounded-2xl border border-stone-200/80 shadow-inner">
+            <div class="overflow-x-auto">
+              <table class="w-full min-w-[36rem] text-left text-sm text-stone-700">
+                <thead>
+                  <tr class="bg-gradient-to-r from-stone-100 to-stone-50 text-xs font-bold uppercase tracking-wider text-stone-600">
+                    <th class="px-4 py-4 md:px-6">Data</th>
+                    <th class="px-4 py-4 md:px-6">Film</th>
+                    <th class="px-4 py-4 md:px-6">Miejsce</th>
+                    <th class="px-4 py-4 md:px-6">Cena</th>
+                    <th class="px-4 py-4 md:px-6">Status</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-stone-100 bg-white">
+                  {{#each historyTickets}}
+                    <tr class="transition-colors hover:bg-rose-50/60">
+                      <td class="whitespace-nowrap px-4 py-4 text-stone-500 md:px-6">{{this.created_at_formatted}}</td>
+                      <td class="px-4 py-4 font-bold text-stone-900 md:px-6">{{this.movie_title}}</td>
+                      <td class="px-4 py-4 font-semibold md:px-6">{{this.seat_number}}</td>
+                      <td class="px-4 py-4 font-black text-rose-600 md:px-6">{{this.price}} zł</td>
+                      <td class="px-4 py-4 md:px-6">
+                        <span class="inline-flex rounded-full bg-stone-100 px-3 py-1.5 text-[10px] font-black uppercase tracking-wide text-stone-600 ring-1 ring-stone-200">Archiwum</span>
+                      </td>
+                    </tr>
+                  {{else}}
+                    <tr>
+                      <td colspan="5" class="px-6 py-20 text-center font-medium text-stone-500">Nie masz jeszcze zakończonych zamówień.</td>
+                    </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div id="section-cancelled" class="content-section relative hidden overflow-hidden rounded-3xl border border-stone-200/90 bg-white p-6 shadow-xl shadow-stone-900/10 ring-1 ring-stone-900/5 md:p-8 lg:p-10">
+          <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-amber-400 to-orange-300"></div>
+          <div class="mb-8 border-b border-stone-100 pb-6 pt-1">
+            <h2 class="font-display flex items-center gap-3 text-2xl font-black text-stone-900 md:text-3xl">
+              <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-100 text-amber-700">
+                <i class="fas fa-ban text-lg"></i>
+              </span>
+              Odwołane rezerwacje
+            </h2>
+            <p class="mt-2 text-sm text-stone-500">Bilety anulowane lub seanse odwołane przez kino.</p>
+          </div>
+          <div class="overflow-hidden rounded-2xl border border-stone-200/80 shadow-inner">
+            <div class="overflow-x-auto">
+              <table class="w-full min-w-[28rem] text-left text-sm text-stone-700">
+                <thead>
+                  <tr class="bg-gradient-to-r from-amber-50 to-stone-50 text-xs font-bold uppercase tracking-wider text-stone-600">
+                    <th class="px-4 py-4 md:px-6">Seans</th>
+                    <th class="px-4 py-4 md:px-6">Film</th>
+                    <th class="px-4 py-4 md:px-6">Kwota</th>
+                    <th class="px-4 py-4 md:px-6">Status</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-stone-100 bg-white">
+                  {{#each cancelledTickets}}
+                    <tr class="transition-colors hover:bg-amber-50/50">
+                      <td class="whitespace-nowrap px-4 py-4 text-stone-500 md:px-6">{{this.displayDate}} · {{this.displayTime}}</td>
+                      <td class="px-4 py-4 font-bold text-stone-900 md:px-6">{{this.movie_title}}</td>
+                      <td class="px-4 py-4 font-medium text-stone-400 line-through md:px-6">{{this.price}} zł</td>
+                      <td class="px-4 py-4 md:px-6">
+                        <span class="inline-flex rounded-full bg-rose-100 px-3 py-1.5 text-[10px] font-black uppercase tracking-wide text-rose-700 ring-1 ring-rose-200/80">Anulowany</span>
+                      </td>
+                    </tr>
+                  {{else}}
+                    <tr>
+                      <td colspan="4" class="px-6 py-20 text-center font-medium text-stone-500">Lista odwołanych jest pusta.</td>
+                    </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div id="section-password" class="content-section relative hidden overflow-hidden rounded-3xl border border-stone-200/90 bg-white p-6 shadow-xl shadow-stone-900/10 ring-1 ring-stone-900/5 md:p-8 lg:p-10">
+          <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-violet-500 via-purple-500 to-rose-400"></div>
+          <div class="grid gap-10 lg:grid-cols-[1fr_minmax(0,14rem)] lg:items-start">
+            <div>
+              <h2 class="font-display flex items-center gap-3 text-2xl font-black text-stone-900 md:text-3xl">
+                <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-violet-100 text-violet-600">
+                  <i class="fas fa-shield-halved text-lg"></i>
+                </span>
+                Zmiana hasła
+              </h2>
+              <p class="mt-3 max-w-md text-sm leading-relaxed text-stone-600">Używaj unikalnego, długiego hasła. Nie powtarzaj go na innych stronach.</p>
+              <form action="/profil/change-password" method="POST" class="mt-8 max-w-md space-y-5">
+                <div class="space-y-2">
+                  <label class="pl-0.5 text-xs font-bold uppercase tracking-wide text-stone-500">Obecne hasło</label>
+                  <input type="password" name="oldPassword" required class="min-h-[3.25rem] w-full rounded-xl border-2 border-stone-200 bg-stone-50/50 px-4 py-3 text-stone-900 outline-none transition-all focus:border-violet-400 focus:bg-white focus:ring-4 focus:ring-violet-100">
+                </div>
+                <div class="space-y-2">
+                  <label class="pl-0.5 text-xs font-bold uppercase tracking-wide text-stone-500">Nowe hasło</label>
+                  <input type="password" name="newPassword" required class="min-h-[3.25rem] w-full rounded-xl border-2 border-stone-200 bg-stone-50/50 px-4 py-3 text-stone-900 outline-none transition-all focus:border-violet-400 focus:bg-white focus:ring-4 focus:ring-violet-100">
+                </div>
+                <div class="space-y-2">
+                  <label class="pl-0.5 text-xs font-bold uppercase tracking-wide text-stone-500">Powtórz hasło</label>
+                  <input type="password" name="confirmPassword" required class="min-h-[3.25rem] w-full rounded-xl border-2 border-stone-200 bg-stone-50/50 px-4 py-3 text-stone-900 outline-none transition-all focus:border-violet-400 focus:bg-white focus:ring-4 focus:ring-violet-100">
+                </div>
+                <button type="submit" class="btn-primary btn-xl mt-2 w-full font-black">Zapisz nowe hasło</button>
+              </form>
+            </div>
+            <div class="hidden rounded-2xl border border-violet-100 bg-gradient-to-b from-violet-50/80 to-white p-6 text-center ring-1 ring-violet-100/80 lg:flex lg:flex-col lg:items-center lg:justify-center lg:py-10">
+              <div class="flex h-20 w-20 items-center justify-center rounded-2xl bg-violet-100 text-4xl text-violet-500 shadow-inner">
+                <i class="fas fa-lock"></i>
+              </div>
+              <p class="mt-4 font-display text-sm font-bold text-violet-900">Szyfrowane połączenie</p>
+              <p class="mt-1 text-xs text-violet-700/80">Hasło przechowujemy jako bezpieczny skrót.</p>
+            </div>
+          </div>
+        </div>
+
+        <div id="section-delete" class="content-section relative hidden overflow-hidden rounded-3xl border-2 border-rose-300 bg-gradient-to-br from-rose-50 via-white to-pink-50 p-6 shadow-xl shadow-rose-200/30 ring-1 ring-rose-200/60 md:p-8 lg:p-10">
+          <div class="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-rose-600 via-rose-500 to-pink-500"></div>
+          <div class="mb-8 border-b border-rose-200/50 pb-6 pt-2">
+            <h2 class="font-display flex items-center gap-3 text-2xl font-black text-rose-900 md:text-3xl">
+              <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-rose-600 text-lg text-white shadow-lg shadow-rose-600/30">
+                <i class="fas fa-triangle-exclamation"></i>
+              </span>
+              Usunięcie konta
+            </h2>
+            <p class="mt-4 max-w-2xl text-sm leading-relaxed text-rose-900/85 md:text-base">Tej operacji nie odwrócisz. Utracisz bilety, historię i dane profilu. Zastanów się, zanim potwierdzisz.</p>
+          </div>
+          <form action="/profil/delete-account" method="POST" onsubmit="return confirm('To Twoja ostatnia szansa. Czy chcesz trwale usunąć konto?');" class="mx-auto max-w-md space-y-5">
+            <div class="space-y-2">
+              <label class="pl-0.5 text-xs font-bold uppercase tracking-wide text-rose-800">Potwierdź aktualnym hasłem</label>
+              <input type="password" name="password" required placeholder="Wpisz hasło" class="min-h-[3.25rem] w-full rounded-xl border-2 border-rose-200 bg-white px-4 py-3 text-stone-900 placeholder:text-stone-400 outline-none transition-all focus:border-rose-500 focus:ring-4 focus:ring-rose-100">
+            </div>
+            <button type="submit" class="min-h-[3.35rem] w-full rounded-xl bg-rose-600 px-6 py-3 text-sm font-black text-white shadow-lg shadow-rose-600/35 transition-all hover:bg-rose-700 active:scale-[0.99]">
+              Nieodwracalnie usuń konto
+            </button>
+          </form>
+        </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .profile-ticket-rise {
+    opacity: 0;
+    animation: profileTicketRise 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  @keyframes profileTicketRise {
+    from {
+      opacity: 0;
+      transform: translateY(1.1rem) scale(0.98);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+</style>
